@@ -1,6 +1,6 @@
 # EGB339-S2-2021-Assignments  
   
-This repo contains assignments of EGB339 Semester 2/2021 at Queensland UniversitY of Technology.  
+This repo contains assignments of EGB339 Semester 2/2021 at Queensland University of Technology.  
 
 <br/>
 
