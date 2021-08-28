@@ -17,5 +17,6 @@ stats = regionprops("table",blueClean,"Centroid");
 % Store data
 centroids = cat(1,stats.Centroid);
 binary_img = blueClean;
+imshow(blueClean);
 
 end
