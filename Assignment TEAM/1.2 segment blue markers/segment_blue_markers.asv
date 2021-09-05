@@ -33,21 +33,19 @@ red = img(:,:,1);
 %2 
 % redBin = imbinarize(red, "adaptive", 'ForegroundPolarity','dark'); 
 % redBin = medfilt2(redBin, [30,30]); 
-redAdjust = imadjust(red,[0.25 0.9],[]);
+redAdjust = imadjust(red,[0.05 0.95],[]);
+
 redBin = redAdjust > 50;
 figure(); imshow(red); title('red');
 figure(); imshow(redBin); title('redBin');
-figure(); imshow(redAdjust); title('redAdjust');
-figure(); imhist(red);
-figure(); imhist(redAdjust);
+figure(); imshow(imadjust(red,[0.3 0.7],[])); title('redAdjust');
 
 green = img(:,:,2); 
-greenAdjust = imadjust(green,[0.25 0.9],[]);
+greenAdjust = imadjust(green,[0.3 0.7],[]);
 % greenBin = imbinarize(green,"adaptive", "Sensitivity", 0.87); 
 greenBin = greenAdjust > 50;
 figure(); imshow(greenBin); title('greenBin');
 figure(); imshow(green); title('green');
-figure(); imhist(greenAdjust);
 
 % blue = blue > 115 & red < 20 & green < 20;
 % imshow(blue);

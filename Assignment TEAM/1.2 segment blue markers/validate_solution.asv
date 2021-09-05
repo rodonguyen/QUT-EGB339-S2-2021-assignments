@@ -7,7 +7,7 @@ function validate_solution()
         
     close all; clear all;  
          
-    for i = 38:38
+    for i = 
         % load the image (change the path if needed)
         img_filename = sprintf('test_images/test_%02d.png', i);
         img = imread(img_filename);          
