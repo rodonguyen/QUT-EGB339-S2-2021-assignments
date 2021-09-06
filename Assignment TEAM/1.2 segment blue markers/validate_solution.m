@@ -6,8 +6,10 @@ function validate_solution()
     % solution!
         
     close all; clear all;  
-         
-    for i = 38:38
+    
+    images = [34 38 43];
+    for i = 1 : 100
+%         i = images(i);
         % load the image (change the path if needed)
         img_filename = sprintf('test_images/test_%02d.png', i);
         img = imread(img_filename);          

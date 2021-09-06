@@ -23,49 +23,68 @@ function [binary_img, centroids] = segment_blue_markers(img)
 
 %% Version 2
 
-gray = 255 - rgb2gray(img);
-blue = img(:,:,3);
+% % Turn gray to white
+% %
+% %
+% gray = 255 - rgb2gray(img);
+% blue = img(:,:,3);
+% 
+% red = img(:,:,1); 
+% 
+% % ///
+% % redBin = imbinarize(red,"adaptive", "Sensitivity", 0.87); %submitted one
+% % redBin = imbinarize(red, "adaptive", 'ForegroundPolarity','dark'); 
+% % redBin = medfilt2(redBin, [30,30]); 
+% redAdjust = imadjust(red,[0.05 0.95],[]);
+% redBin = redAdjust > 20;
+% 
+% % SHOW RESULTS
+% figure(); imshow(red); title('red');
+% figure(); imshow(redAdjust); title('redAdjust');
+% % figure(); imshow(redBin); title('redBin');
+% 
+% green = img(:,:,2); 
+% greenAdjust = imadjust(green,[0.05 0.95],[]);
+% greenBin = green > 20; 
+% % greenBin = greenAdjust > 50;
+% 
+% % SHOW RESULTS
+% figure(); imshow(green); title('green');
+% figure(); imshow(greenAdjust); title('greenAdjust');
+% figure(); imshow(greenBin); title('greenBin');
+% 
+% % figure(); imhist(green); title('greenAdjust'); 
+% % figure(); imhist(greenAdjust);
+% 
+% % blue = blue > 115 & red < 20 & green < 20;
+% % imshow(blue);
+% 
+% % test gray minus green and red
+% grayMinus = gray - uint8(redBin)*255 - uint8(greenBin)*255;
+% grayAdjust = imadjust(grayMinus,[0.2 0.5],[]);
+% figure(); imshow(grayAdjust); title('GrayMinus');
+% % grayBin = imbinarize(grayMinus, 'adaptive', 'Sensitivity', 0.55);
+% grayBin = imbinarize(grayAdjust, 200/255);
+% % imshow(grayBin);
+% 
+% blueClean = medfilt2(grayBin, [10,10]);
+% stats = regionprops("table", blueClean, "Centroid");
+% 
+% % Store data
+% centroids = cat(1,stats.Centroid);
+% binary_img = blueClean;
 
-red = img(:,:,1); 
+%% Version 3
 
-%1
-% redBin = imbinarize(red,"adaptive", "Sensitivity", 0.87); %submitted one
-%2 
-% redBin = imbinarize(red, "adaptive", 'ForegroundPolarity','dark'); 
-% redBin = medfilt2(redBin, [30,30]); 
-redAdjust = imadjust(red,[0.25 0.9],[]);
-redBin = redAdjust > 50;
-figure(); imshow(red); title('red');
-figure(); imshow(redBin); title('redBin');
-figure(); imshow(redAdjust); title('redAdjust');
-figure(); imhist(red);
-figure(); imhist(redAdjust);
+blue = (img(:,:,3) > 100 & img(:,:,1) < 10 & img(:,:,2) < 10) | (img(:,:,3) == 255 & img(:,:,2) < 200 & img(:,:,1) < 200);
+% figure(); imshow(blue); title('ohyeah');
 
-green = img(:,:,2); 
-greenAdjust = imadjust(green,[0.25 0.9],[]);
-% greenBin = imbinarize(green,"adaptive", "Sensitivity", 0.87); 
-greenBin = greenAdjust > 50;
-figure(); imshow(greenBin); title('greenBin');
-figure(); imshow(green); title('green');
-figure(); imhist(greenAdjust);
-
-% blue = blue > 115 & red < 20 & green < 20;
-% imshow(blue);
-
-% test gray minus green and red
-grayMinus = gray - uint8(redBin)*255 - uint8(greenBin)*255;
-% % % figure();
-% % % imshow(grayMinus); title('GrayMinus');
-% grayBin = imbinarize(grayMinus, 'adaptive', 'Sensitivity', 0.55);
-grayBin = imbinarize(grayMinus, 30/255);
-% imshow(grayBin);
-
-blueClean = medfilt2(grayBin, [10,10]);
-% Get props' centroids
+blueClean = medfilt2(blue, [5,5]);
 stats = regionprops("table", blueClean, "Centroid");
 
 % Store data
 centroids = cat(1,stats.Centroid);
 binary_img = blueClean;
+
 
 end
