@@ -22,14 +22,13 @@ function validate_solution()
         % ==================================================
         
         % uncomment this for debugging / plotting
-%         figure(); imshow(binary_img);
+        figure(); imshow(binary_img);
 %         figure(); imshow(img);
 %         hold on;
 %         plot(centroids(:,1), centroids(:,2), 'r*')
 %         plot(centroid_markers(:,1), centroid_markers(:,2), 'go');
 %         hold off;
-%         title(img_filename, 'interpreter', 'none');
-%         pause(0.1);
+        title(img_filename, 'interpreter', 'none');
 
         % did your script return too many centroids? There are only 9 true
         % centroids!
