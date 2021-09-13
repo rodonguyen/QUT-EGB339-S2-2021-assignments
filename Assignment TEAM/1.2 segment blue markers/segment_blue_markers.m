@@ -80,7 +80,9 @@ function [binary_img, centroids] = segment_blue_markers(img)
 blue = (img(:,:,3) > 100 & img(:,:,1) < 10 & img(:,:,2) < 10) | (img(:,:,3) == 255 & img(:,:,2) < 200 & img(:,:,1) < 200); % image 43 and 34
 % figure(); imshow(blue); title('ohyeah');
 % Clean noise
-blueClean = medfilt2(blue, [5,5]);
+blueClean = medfilt2(blue, [2,2]);
+
+% blueClean = blue;
 % Get centroids
 stats = regionprops("table", blueClean, "Centroid");
 
