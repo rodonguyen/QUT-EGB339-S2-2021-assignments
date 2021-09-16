@@ -91,9 +91,9 @@ function [binary_img, centroids] = segment_blue_markers(img)
 % binary_img = blueClean;
 
 %% Version 4 Worked!
-clear;
+
 %convert to double
-img = im2double(imread('test_01.png'));
+img = im2double(img);
 %rgb colour plains
 r = img(:,:,1);
 g = img(:,:,2);
