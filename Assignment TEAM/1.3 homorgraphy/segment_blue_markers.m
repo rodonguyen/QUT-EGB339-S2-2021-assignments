@@ -90,7 +90,7 @@ function [binary_img, centroids] = segment_blue_markers(img)
 % centroids = cat(1,stats.Centroid);
 % binary_img = blueClean;
 
-%% Version 4 Worked!
+%% Version 4: Worked!
 
 %convert to double
 img = im2double(img);
