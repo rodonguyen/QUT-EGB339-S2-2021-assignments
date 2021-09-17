@@ -7,8 +7,8 @@ function validate_solution()
         
     close all; clear all;  
     
-    images = [34 38 43];
-    for i = 1 : 100
+    hard_images = [34 38 43];
+    for i = 1 : 50
 %         i = images(i);
         % load the image (change the path if needed)
         img_filename = sprintf('test_images/test_%02d.png', i);
