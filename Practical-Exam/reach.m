@@ -40,7 +40,7 @@ theta3 = pi/2 - beta;   % Robot angle is already added 90 degrees, therefore min
 theta4 = - theta3 - theta2;  % testing our way
 
 q_new = rad2deg([theta1 theta2 theta3 theta4 0])
-setJointPositions(sim, rad2deg(q_new));
+setJointPositions(sim, q_new);
 % setJointPositions(sim, q_new);
 
 done = 1;
