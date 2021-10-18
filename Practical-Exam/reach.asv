@@ -41,10 +41,10 @@ theta4 = - theta3 - theta2;  % testing our way
 
 q_current = getJointPositions(sim)
 q_new = rad2deg([theta1 theta2 theta3 theta4 0])
-q_mid = jtraj(q_current, q_new, 20)
+q_mid = jtraj(q_current, q_new, 10)
 for q=q_mid'
     setJointPositions(sim, q);
-    pause(0.001);
+    pause(0.01);
 end
 % setJointPositions(sim, q_new);
 

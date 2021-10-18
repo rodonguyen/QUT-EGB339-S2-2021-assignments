@@ -1,4 +1,4 @@
-function retval = fullmarks(sim, init_image, dest_image)
+function retval = EGB339_21S2_19(sim, init_image, dest_image)
 
 if nargin == 0 
     retval = 20   
