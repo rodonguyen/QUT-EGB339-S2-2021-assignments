@@ -26,7 +26,7 @@ else
 end
 
 % Get red shapes full data
-[rowNum,~] = size(redProps);
+[rowNum,~] = size(redProps)
 % redAreas = cat(1,redProps.Area);
 for i = 1:rowNum
     % remove possible noise
