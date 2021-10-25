@@ -1,0 +1,29 @@
+function [redStats,blueStats,greenStats] = extractColor(image)
+%extract colour plain
+red_plain = image(:,:,1);
+green_plain = image(:,:,2);
+blue_plain = image(:,:,3);
+
+red = imclose(red_plain./(red_plain+green_plain+blue_plain) > 0.5, ones(5,5));
+blue = imclose(blue_plain./(red_plain+green_plain+blue_plain) > 0.5, ones(5,5));
+green = imclose(green_plain./(red_plain+green_plain+blue_plain) > 0.5, ones(5,5));
+
+%get Shape props from colour plains
+if sum(sum(red))>0
+    redStats = regionprops("table",red,"Centroid","Area","Circularity");
+else
+    redStats = 0;
+end
+if sum(sum(blue))>0
+    blueStats = regionprops("table",blue,"Centroid","Area","Circularity");
+else
+    blueStats = 0;
+end
+if sum(sum(green))>0
+    greenStats = regionprops("table",green,"Centroid","Area","Circularity");
+else
+    greenStats = 0;
+end
+
+
+end

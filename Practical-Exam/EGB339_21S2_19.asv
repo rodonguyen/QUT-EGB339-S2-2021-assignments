@@ -19,18 +19,12 @@ end
 q = [0 -24 -21 45 0]; % Perfect for top view picture
 % q0 = [0 0 0 0 0];
 setJointPositions(sim, q);
-
 % % Capture image
 pause(3);
 image = getImage(sim);
 image(1:122,:,:) = 0;
 
-data = extractData(image)
-
-init_image = double(imread("init_image2.jpg"));
-dest_image = double(imread("init_image3.jpg"));
-initData = extractData("init_image.jpg")
-destData = extractData("dest_image.jpg")
+[redSData,greenData] = extractData(image)
 
 
 
