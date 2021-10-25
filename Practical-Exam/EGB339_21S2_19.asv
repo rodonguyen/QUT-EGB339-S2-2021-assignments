@@ -22,7 +22,6 @@ dest_image = double(dest_image);
 q = [0 -24 -21 45 0]; % Perfect for top view picture
 q0 = [0 0 0 0 0];
 setJointPositions(sim, q);
-pause(5)
 
 % Capture image
 pause(3);
@@ -49,8 +48,8 @@ end
 dest_xy_image = zeros(2,3);
 for i=1:3
     temp1 = [data(:,1)==destData(i,1) data(:,2)==destData(i,2) data(:,6)==destData(i,6)];
-    temp2 = temp1(:,1) + temp1(:,2) + temp1(:,3);
-    postition = find(temp2==3);
+    temp2 = temp1(:,1) + temp1(:,2) + temp1(:,3)
+    postition = find(temp2==3)
     dest_xy_image(1,i) = str2num(data(postition, 3));
     dest_xy_image(2,i) = str2num(data(postition, 4));
 end
@@ -142,8 +141,8 @@ retval = {init_xy, dest_xy};
 
 
 %% REMOVE BEFORE SUBMIT
-% cylinderPos = [init_xy(1,1) init_xy(2,1); init_xy(1,2) init_xy(2,2); init_xy(1,3) init_xy(2,3)]
-% setCylinderPosition(sim, cylinderPos);
+cylinderPos = [init_xy(1,1) init_xy(2,1); init_xy(1,2) init_xy(2,2); init_xy(1,3) init_xy(2,3)]
+setCylinderPosition(sim, cylinderPos);
 %
 %
 %
@@ -153,31 +152,30 @@ retval = {init_xy, dest_xy};
 %
 %% MOVE THE CYLINDERS FROM INITIAL TO DESTINATION POSITIONS 
 
+setJointPositions(sim, q0);
+pause(2);
 for i = 1:3
     % Reach to initial position
-    reach(sim, init_xy(1,i), init_xy(2,i), 150);
-    pause(2);
     reach(sim, init_xy(1,i), init_xy(2,i), 50);
-    pause(2);
     setSuctionCup(sim, 1);
-    reach(sim, init_xy(1,i), init_xy(2,i), 150);
-    pause(2);
+    
+    % Back to origin
+    q_current = getJointPositions(sim);
+    q_mid = jtraj(q_current, q0, 10);
+    for q=q_mid'
+        setJointPositions(sim, q);
+    end
     
     % Reach to destination position
-    reach(sim, dest_xy(1,i), dest_xy(2,i),150);
-    pause(2);
-    reach(sim, dest_xy(1,i), dest_xy(2,i),50);
-    pause(2);
+    reach(sim, dest_xy(1,i), dest_xy(2,i));
     setSuctionCup(sim, 0);
-    reach(sim, dest_xy(1,i), dest_xy(2,i),150);
-    pause(2);
-     
-%     % Back to origin
-%     q_current = getJointPositions(sim);
-%     q_mid = jtraj(q_current, q0, 2);
-%     for q=q_mid'
-%         setJointPositions(sim, q);
-%     end
+    
+    % Back to origin
+    q_current = getJointPositions(sim);
+    q_mid = jtraj(q_current, q0, 10);
+    for q=q_mid'
+        setJointPositions(sim, q);
+    end
 end
 
 
@@ -224,7 +222,7 @@ end
 
     q_current = getJointPositions(sim);
     q_new = rad2deg([theta1 theta2 theta3 theta4 0]);
-    q_mid = jtraj(q_current, q_new, 10);
+    q_mid = jtraj(q_current, q_new, 20);
     for q=q_mid'
         setJointPositions(sim, q);
     end
@@ -232,7 +230,6 @@ end
 
     end
 
-    %% 
     function [data] = extractData(image, sizeThreshold)
     %extract colour plain
     r = image(:,:,1);
