@@ -50,7 +50,7 @@ end
 for i = 1:1
        
     sim = coppeliaRobot('Dobot');
-    sim.startSim(); 
+    sim.startSim(1); 
     
     %use this to change the exam practice sheet (1 or 2)
     sim.showExamSheet(1)
