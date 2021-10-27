@@ -19,11 +19,11 @@ end
 init_image = double(init_image);
 dest_image = double(dest_image);
 
-q = [0 -24 -21 45 0]; % Perfect for top view picture
+qView = [0 -24 -21 45 0]; % Perfect for top view picture
 q0 = [0 0 0 0 0];
-setJointPositions(sim, q);
+setJointPositions(sim, qView);
 fprintf("Pause 15s...\n");
-pause(15)
+pause(7)
 
 % Capture image; Turn to DOUBLE
 fprintf("Capturing image\n");
@@ -140,12 +140,12 @@ dest_xy(:,3) = temp_xy(1:2,:)./temp_xy(3,:);
 % a cylinder 
 % % dest_xy = ?? % must be 3x2 matrix 
 
-retval = {init_xy, dest_xy};
+retval = {init_xy', dest_xy'};
 fprintf("Done.\n");
 
 %% REMOVE BEFORE SUBMIT
-% cylinderPos = [init_xy(1,1) init_xy(2,1); init_xy(1,2) init_xy(2,2); init_xy(1,3) init_xy(2,3)];
-% setCylinderPosition(sim, cylinderPos);
+cylinderPos = [init_xy(1,1) init_xy(2,1); init_xy(1,2) init_xy(2,2); init_xy(1,3) init_xy(2,3)];
+setCylinderPosition(sim, cylinderPos);
 %
 %
 %
@@ -159,22 +159,24 @@ for i = 1:3
     % Reach to initial position
     fprintf("Reaching for cylinder %d\n", i);
     reach(sim, init_xy(1,i), init_xy(2,i), 150);
-    pause(2);
+    pause(20);
     reach(sim, init_xy(1,i), init_xy(2,i), 50);
-    pause(2);
+    pause(11);
     setSuctionCup(sim, 1);
+    pause(3);
     reach(sim, init_xy(1,i), init_xy(2,i), 150);
-    pause(2);
+    pause(11);
     
     % Reach to destination position
     fprintf("Droping cylinder %d\n", i);
     reach(sim, dest_xy(1,i), dest_xy(2,i),150);
-    pause(2);
+    pause(20);
     reach(sim, dest_xy(1,i), dest_xy(2,i),50);
-    pause(2);
+    pause(11);
     setSuctionCup(sim, 0);
-    reach(sim, dest_xy(1,i), dest_xy(2,i),150);
     pause(2);
+    reach(sim, dest_xy(1,i), dest_xy(2,i),150);
+    pause(11);
      
 %     % Back to origin
 %     q_current = getJointPositions(sim);
@@ -228,11 +230,11 @@ fprintf("Finished moving the cylinders\n");
 
     q_current = getJointPositions(sim);
     q_new = rad2deg([theta1 theta2 theta3 theta4 0]);
-    q_mid = jtraj(q_current, q_new, 10);
-    for q=q_mid'
-        setJointPositions(sim, q);
-    end
-    % setJointPositions(sim, q_new);
+%     q_mid = jtraj(q_current, q_new, 10);
+%     for q=q_mid'
+%         setJointPositions(sim, q);
+%     end
+    setJointPositions(sim, q_new);
 
     end
 
@@ -298,13 +300,13 @@ fprintf("Finished moving the cylinders\n");
 
     [rowNum,~] = size(greenProps);
     for k = 1:rowNum
-        %remove possible noise
+        % remove possible noise
         if greenProps(k).Area<=30
             continue
         end
-        %get shape colour
+        % get shape colour
         greenData(k,1)="green";
-        %determine shape
+        % determine shape
         if greenProps(k).Circularity > 0.85
             greenData(k,2)= "Circle";
         elseif greenProps(k).Circularity <=0.85 && greenProps(k).Circularity > 0.7
@@ -418,6 +420,9 @@ fprintf("Finished moving the cylinders\n");
     % % end
 
     data = cat(1, redData, greenData);
+%     data = [ data(:,1:2) str2num(data(:,3)) data(:,4:6)]
+    data = sortrows(data, 3)
+%     data = [ data(:,1:2) num2str(data(:,3)) data(:,4:6)]
 
     end
 
