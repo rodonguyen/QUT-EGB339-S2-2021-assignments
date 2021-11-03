@@ -22,7 +22,7 @@ dest_image = double(dest_image);
 qView = [0 -24 -21 45 0]; % Perfect for top view picture
 q0 = [0 0 0 0 0];
 setJointPositions(sim, qView);
-fprintf("Pause 15s...\n");
+fprintf("Pause 7s...\n");
 pause(7)
 
 % Capture image; Turn to DOUBLE
@@ -144,8 +144,8 @@ retval = {init_xy', dest_xy'};
 fprintf("Done.\n");
 
 %% REMOVE BEFORE SUBMIT
-cylinderPos = [init_xy(1,1) init_xy(2,1); init_xy(1,2) init_xy(2,2); init_xy(1,3) init_xy(2,3)];
-setCylinderPosition(sim, cylinderPos);
+%cylinderPos = [init_xy(1,1) init_xy(2,1); init_xy(1,2) init_xy(2,2); init_xy(1,3) init_xy(2,3)];
+%setCylinderPosition(sim, cylinderPos);
 %
 %
 %
