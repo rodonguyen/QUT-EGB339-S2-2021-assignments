@@ -30,9 +30,13 @@ Assignment | Task description | Method
 1.4 | Calculate disparity | Get blue circles' centroids, use formula: `focal*baseline/(disparity*picelSize)`
 2 | Needle counting (Count circles) | Binarize, filter, invert, number of circles = count from bwlabel - 1
 
+### Practical Exam
+Please read README.md in its folder
 
-## Author
-Rodo Nguyen (rodonguyendd@gmail.com)
+<br>
+
+### Author
+Rodo Nguyen rodonguyen[ignorethis]dd@gmail.com
 
 
 
